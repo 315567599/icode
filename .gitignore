@@ -3,4 +3,4 @@ core.*
 .Rhistory
 .idea
 AI/inception_model/*
-AI/tensorflow-learn/captcha
+AI/tensorflow-learn/captcha/*

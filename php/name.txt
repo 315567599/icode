@@ -1,0 +1,12 @@
+$prefix
+$paths
+findFileWithExtensionth
+getPath
+hasGroup
+afterLoad
+parseNamespacedSegments
+afterLoading
+offsetGet
+$encrypter
+Guard
+$factory

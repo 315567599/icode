@@ -1,0 +1,137 @@
+"====================
+set nocompatible              " be iMproved, required
+filetype off                  " required
+
+" set the runtime path to include Vundle and initialize
+ set rtp+=~/.vim/bundle/Vundle.vim
+ call vundle#begin()
+
+ Plugin 'gmarik/Vundle.vim'
+ Plugin 'Lokaltog/vim-easymotion'
+ Plugin 'scrooloose/nerdtree'
+ Plugin 'Valloric/YouCompleteMe'
+
+ call vundle#end()            " required
+ filetype plugin indent on    " required
+""====================
+
+syntax on  " 语法高亮
+set nocompatible "不要vim模仿vi模式，建议设置，否则会有很多不兼容的问题
+
+set nu  " 显示行号
+set cul "高亮光标所在行
+set shortmess=atI " 启动的时候不显示那个援助乌干达儿童的提示 
+" 自动缩进
+set autoindent
+set cindent
+" " Tab键的宽度
+set tabstop=4
+" " 统一缩进为4
+set softtabstop=4
+set shiftwidth=4
+" " 不要用空格代替制表符
+set expandtab
+" " 在行和段开始处使用制表符
+set smarttab
+
+set smartindent " 智能自动缩进
+" " 历史记录数
+set history=1000
+" "搜索逐字符高亮
+set hlsearch
+set incsearch
+"禁止生成临时文件
+set nobackup
+set noswapfile
+
+""搜索忽略大小写
+set ignorecase
+
+" 增强模式中的命令行自动完成操作
+ set wildmenu
+
+ " 高亮显示匹配的括号
+set showmatch
+
+" encode
+set encoding=utf-8
+
+"set guifont=Monaco:h13
+"set guifont=YaHei\ Mono:h16
+
+" " 侦测文件类型
+filetype on
+" " 载入文件类型插件
+filetype plugin on
+" " 为特定文件类型载入相关缩进文件
+filetype indent on
+
+
+
+" 在状态行上显示光标所在位置的行号和列号 
+set ruler 
+set rulerformat=%20(%2*%<%f%=\ %m%r\ %3l\ %c\ %p%%%) 
+" 我的状态行显示的内容（包括文件类型和解码） 
+set statusline=%f%m%r%h%w\ [format=%{&ff}]\ [type=%y]\ [pos=%l,%v][%p%%]\%{strftime(\"%d/%m/%y\ -\ %h:%m\")} 
+
+
+"当打开vim且没有文件时自动打开NERDTree
+autocmd vimenter * if !argc() | NERDTree | endif
+
+" Yank from the cursor to the end of the line, to be consistent with C and D.
+nnoremap Y y$
+
+"键盘绑定
+let mapleader=","
+
+nmap <silent> <f3> :NERDTreeToggle<cr>
+nmap <leader>ne :NERDTreeToggle<cr>
+nmap <silent> <f8> <esc>:vertical resize +4<cr><esc>:resize +3<cr>
+nmap <silent> <f7> <esc>:vertical resize -4<cr><esc>:resize -3<cr>
+
+
+" 按,w保存文件
+nmap <leader>w :w<cr><esc>
+nmap <leader>q :q<cr><esc>
+nmap <leader>x :wq<cr><esc>
+
+nmap <leader>u <c-b><esc>
+nmap <leader>d <c-f><esc>
+
+" 按,e在新tab打开文件
+nmap <leader>t :tab split<space><cr><esc>
+" sp
+map <leader>sp :sp<cr><esc>
+"vsp
+map <leader>v :vsp<cr><esc>
+" 窗口移动
+"
+nmap <leader>j <C-J><esc>
+map <C-J> <C-W>j<C-W>_
+
+nmap <leader>k <C-K><esc>
+map <C-K> <C-W>k<C-W>_
+
+nmap <leader>l <C-L><esc>
+map <C-L> <C-W>l<C-W>_
+
+nmap <leader>h <C-H><esc>
+map <C-H> <C-W>h<C-W>_
+" w :sh
+map <leader>sh :w<cr><esc>:sh<cr><esc>
+map z :/
+" 全选
+
+map <leader>tou ggo/*<cr>*copyright(c) 2014-2015 pingan fang corp.<cr>*<cr>*authored by jiang chao <jiangchao375@pingan.com.cn> on:<esc>:read !date <cr>kj$a<cr>*<cr>* @desc:<cr>*<cr>* @history<cr>*/<esc>
+
+
+noremap H ^
+noremap L $
+
+"easy motion
+let g:EasyMotion_do_mapping = 0 " Disable default mappings
+nmap s <plug>(easymotion-s)
+
+let g:EasyMotion_smartcase = 1
+map gd <Plug>(easymotion-j)
+map gu <Plug>(easymotion-k)

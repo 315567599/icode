@@ -1,0 +1,43 @@
+good example:
+优化后语句：
+    select * from t_page_sample
+where id >= ( select sql_no_cache id from t_page_sample order by id asc limit 900001,1)
+    limit 20;
+
+bad example:
+
+explain select sql_no_cache * from t_page_sample order by id asc limit 900001,20;
+
+------------------
+
+Why does MYSQL higher LIMIT offset slow the query down?
+
+It's normal that higher offsets slow the query down, since the query needs to count off the first OFFSET + LIMIT records (and take only LIMIT of them). The higher is this value, the longer the query runs.
+
+The query cannot go right to OFFSET because, first, the records can be of different length, and, second, there can be gaps from deleted records. It needs to check and count each record on its way.
+
+Assuming that id is a PRIMARY KEY of a MyISAM table, you can speed it up by using this trick:
+
+SELECT  t.*
+FROM    (
+        SELECT  id
+        FROM    mytable
+        ORDER BY
+        id
+        LIMIT 10000, 30
+        ) q
+JOIN    mytable t
+ON      t.id = q.id
+
+-----------------------
+
+性能的主要差异原因是： ROW LOOKUP !!!
+
+https://explainextended.com/2009/10/23/mysql-order-by-limit-performance-late-row-lookups/
+
+Table pointer, that is some value that uniquely identifies a row the record reflects. In InnoDB, it is the value of the PRIMARY KEY; in MyISAM, it is an offset in the .MYD file.
+
+This is called late row lookup: the engine should look a row up only if there is no way to avoid it. If there is a chance that a row will be filtered out by using the indexed fields only, it should be done before the rows are looked up in the actual MySQL table. There is no point in fetching the records out of the table just to discard them.
+
+
+

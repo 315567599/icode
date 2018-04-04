@@ -1,0 +1,5 @@
+git rm string_operations
+
+rm 'src/string_operations'
+
+git commit -a -m "Removed executable binary"

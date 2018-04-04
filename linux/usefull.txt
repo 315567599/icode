@@ -1,0 +1,4 @@
+grep wfArrayToCGI * -R -l -Z | xargs -0 -l sed -i -e 's/wfArrayToCGI/wfArrayToCgi/g' && git checkout -- HISTORY
+批量替换命令
+
+ grep file * -R -l | xargs sed -i -e 's/file/FILE/g' 代码重构命令

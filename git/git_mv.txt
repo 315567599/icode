@@ -1,0 +1,11 @@
+***移动文件目录
+mkdir src
+
+git mv string.c src/
+
+git status -s
+R string.c −> src/string.c
+?? string
+
+***修改文件名
+git mv string.c string_operations.c

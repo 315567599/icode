@@ -1,0 +1,9 @@
+[1] 《NYTimes Objective-C Style Guide》 https://github.com/NYTimes/objective-c-style-guide
+[2] 《Coding Guidelines for Cocoa》https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/APIAbbreviations.html
+[3] 《iOS-view-frame-builder》https://github.com/rsobik/ios-view-frame-builder/commit/0fa2d81762bc21619b1503d34b7d67160f4678f8
+[4] 《Cocoa Style for Objective-C: Part I》 http://cocoadevcentral.com/articles/000082.php
+[5] 《Cocoa Style for Objective-C: Part II》http://cocoadevcentral.com/articles/000083.php
+[6] 《objective-c-conventionsI》https://github.com/github/objective-c-conventions
+[7] 《The official raywenderlich.com Objective-C style guide.》https://github.com/raywenderlich/objective-c-style-guide#cgrect-functions
+[8] 《Blocks or Delegation》http://stablekernel.com/blog/blocks-or-delegation/
+

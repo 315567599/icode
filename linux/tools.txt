@@ -1,0 +1,145 @@
+11. xargs command examples
+
+Copy all images to external hard-drive
+
+# ls *.jpg | xargs -n1 -i cp {} /external-hard-drive/directory
+Search all jpg images in the system and archive it.
+
+# find / -name *.jpg -type f -print | xargs tar -cvzf images.tar.gz
+Download all the URLs mentioned in the url-list.txt file
+
+# cat url-list.txt | xargs wget –c
+
+$ ls | xargs -t -i mv {} {}.bak
+-i 选项告诉 xargs 用每项的名称替换 {}。-t 选项指示 xargs 先打印命令，然后再执行。
+另一个非常有用的操作是当你使用 vi 打开要编辑的文件时：
+$ file * | grep ASCII | cut -d":" -f1 | xargs vi
+该命令使用 vi 逐个打开文件。当你希望搜索多个文件并打开他们进行编辑时，使用该命令非常方便。 
+他更有几个选项。最有用的可能是 -p 选项，他使操作具有可交互性：
+$ file * | grep ASCII | cut -d":" -f1 | xargs -p vi
+vi alert_DBA102.log dba102_cjq0_14493.trc dba102_mmnl_14497.trc 
+  dba102_reco_14491.trc dba102_rvwr_14518.trc ?...
+此处的 xarg 需求你在运行每个命令之前进行确认。如果你按下 "y"，则执行命令。当你对文件进行某些可能有破坏且不可恢复的操作（如删除或覆盖）时，你会发现该选项非常有用。
+############################################################################
+----------------------------------------
+ssh-keygen -t rsa -C "[email_address]"
+
+sh git@github.com
+
+git config --global user.name 'Shaumik'
+git config --global user.email 'sd@gmail.com'
+git config --global color.ui 'auto'
+
+git add myfile2 myfile3
+-----------------------------
+Let’s say you have added files to Git that you do not want it to track. In such a situation, you tell Git to stop tracking them. Yet, running a simple git rm will not only remove it from Git, but will also remove it from your local file system as well! To tell Git to stop tracking a file, but still keep it on your local system, run the following command:
+
+git rm --cached [file_name]
+--------------------------------
+You need to add these files again to stage the changes in tracked files for the next commit. You can add all the tracked files by running:
+
+git add -u
+--------------------------------
+This shows you the entire history of the project — which is a list of all the commits and their information. The information about a commit contains the commit hash, author, time and commit message. There are many variations of git log, which you could explore once you understand the concept of a branch in Git. To view the details of a particular commit and the files that were changed, run the following command:
+
+git show <hash>
+
+------------------------------------
+A "remote" refers to a remote version of your git repository.
+
+git remote add origin https://github.com/sdaityari/my_git_project.git
+git push -u origin master
+
+-------------------------------------
+centos 7 打开关闭防火墙
+
+
+查看防火墙状态。
+
+systemctl status firewalld
+
+
+
+临时关闭防火墙命令。重启电脑后，防火墙自动起来。
+
+systemctl stop firewalld
+
+
+
+
+永久关闭防火墙命令。重启后，防火墙不会自动启动。
+
+ systemctl disable firewalld
+
+
+
+
+打开防火墙命令。
+
+systemctl enable firewalld
+
+-----------------------
+grep -r key dic/* 搜索某目录下含有key的所有文件
+ ls -la -R(reverse关键是这个命令)  Linux列出某文件夹下面所有文件包括子目录得的文件 
+--------------
+ls -l , df
+所顯示的檔案大小是以byte為單位，
+若是要以我們比較可以了解的大小單位進行換算，你可以加上參數h
+ls -lh
+df -h
+---------------
+
+linux下find查找命令用法
+
+1．命令格式：
+
+find pathname -options [-print -exec -ok ...]
+
+2．命令功能：
+
+用于在文件树种查找文件，并作出相应的处理 
+
+实例1：查找指定时间内修改过的文件
+
+命令：
+           find -atime -2
+
+超找48小时内修改过的文件 
+
+实例2：根据关键字查找
+
+命令：
+
+find . -name "*.log"
+
+在当前目录查找 以.log结尾的文件。 ". "代表当前目录 
+
+
+实例5：查找当前所有目录并排序
+
+命令：
+
+find . -type d | sort
+
+-------
+　　Netstat -tln 命令是Linux查看端口使用情况
+
+-------------
+ netstat -antp
+---------
+# netstat -s   # 查看网络统计信息 
+-----------------
+sar -u 10 3 每10秒采样一次，连续采样3次，观察CPU 的使用情况
+-------------
+要判断系统瓶颈问题，有时需几个 sar 命令选项结合起来
+
+怀疑CPU存在瓶颈，可用 sar -u 和 sar -q 等来查看
+
+怀疑内存存在瓶颈，可用 sar -B、sar -r 和 sar -W 等来查看
+
+怀疑I/O存在瓶颈，可用 sar -b、sar -u 和 sar -d 等来查看
+---------------
+ clock --set --date="12/25/2014 09:03:45"
+linux更新系统时间
+---------------
+

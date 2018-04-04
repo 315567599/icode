@@ -1,0 +1,11 @@
+One way to look at Neural Networks with fully-connected layers is that they define a family of functions that are parameterized by the weights of the network. A natural question that arises is: What is the representational power of this family of functions? In particular, are there functions that cannot be modeled with a Neural Network?
+http://cs231n.github.io/neural-networks-1/
+
+It turns out that Neural Networks with at least one hidden layer are universal approximators. That is, it can be shown (e.g. see Approximation by Superpositions of Sigmoidal Function from 1989 (pdf), or this intuitive explanation from Michael Nielsen) that given any continuous function f(x) and some ϵ>0, there exists a Neural Network g(x) with one hidden layer (with a reasonable choice of non-linearity, e.g. sigmoid) such that ∀x,∣f(x)−g(x)∣<ϵ. In other words, the neural network can approximate any continuous function.
+
+If one hidden layer suffices to approximate any function, why use more layers and go deeper? The answer is that the fact that a two-layer Neural Network is a universal approximator is, while mathematically cute, a relatively weak and useless statement in practice. In one dimension, the “sum of indicator bumps” function g(x)=∑ici𝟙(ai<x<bi) where a,b,c are parameter vectors is also a universal approximator, but noone would suggest that we use this functional form in Machine Learning. Neural Networks work well in practice because they compactly express nice, smooth functions that fit well with the statistical properties of data we encounter in practice, and are also easy to learn using our optimization algorithms (e.g. gradient descent). Similarly, the fact that deeper networks (with multiple hidden layers) can work better than a single-hidden-layer networks is an empirical observation, despite the fact that their representational power is equal.
+
+A	neuron	is	essentially	a	binary	logistic	regression	unit
+
+b:	We	can	have	an	“always	on” feature,	which	gives	a	class	prior,  or	separate	it	out,	as	a	bias	term
+

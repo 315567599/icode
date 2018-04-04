@@ -1,0 +1,21 @@
+Nginx is really fast: can serve an ad in less than a millisecond
+
+Keep all ad serving data in memory: read only
+
+jemalloc gave a 30% speed improvement
+
+Use Aerospike for user profiles: less than 1ms to fetch a profile
+
+Pre-compute all ad serving data on one box and dispatch across all servers
+
+Torrents are used to propagate serving data across all servers. Using Torrents resulted in 83% network load drop on the originating server compared to HTTP-based distribution.
+
+mmap is used to share ad serving data across nginx processes
+
+XXHash is the fastest hash function with a low collision rate. 75x faster than SHA-1 for computing checksums
+
+5% of real traffic goes to staging environment
+
+Ability to run 3 A/B tests at once (20%/20%/10% of traffic for three separate tests, 50% for control)
+
+    A/B test results are available in regular reporting

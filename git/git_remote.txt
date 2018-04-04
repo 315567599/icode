@@ -1,0 +1,19 @@
+为了便于管理，Git要求每个远程主机都必须指定一个主机名。git remote命令就用于管理主机名。
+
+使用-v选项，可以参看远程主机的网址。
+
+$ git remote -v
+origin  git@github.com:jquery/jquery.git (fetch)
+origin  git@github.com:jquery/jquery.git (push)
+
+git remote show命令加上主机名，可以查看该主机的详细信息。
+
+$ git remote show <主机名>
+------------
+git remote add命令用于添加远程主机。
+$ git remote rm <主机名>
+------------
+git remote rename命令用于远程主机的改名。
+
+$ git remote rename <原主机名> <新主机名>
+----------------

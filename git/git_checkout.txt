@@ -1,0 +1,31 @@
+使用git恢复未提交的更改
+
+[jerry@CentOS src]$ git status -s
+M string_operations.c
+
+[jerry@CentOS src]$ git checkout string_operations.c
+
+[jerry@CentOS src]$ git status –s
+
+-----------------------------
+git checkout 恢复删除的文件
+[tom@CentOS src]$ ls -1
+Makefile
+string_operations.c
+
+[tom@CentOS src]$ rm string_operations.c
+
+[tom@CentOS src]$ ls -1
+Makefile
+
+[tom@CentOS src]$ git status -s
+D string_operations.c
+
+[tom@CentOS src]$ git checkout string_operations.c
+
+[tom@CentOS src]$ ls -1
+Makefile
+string_operations.c
+
+---------------------------
+

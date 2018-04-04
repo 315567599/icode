@@ -1,0 +1,36 @@
+Next time you log in to Pinterest, remember that Redis is running in the background and storing several types of lists for you as a user:
+
+A list of users who you follow
+A list of boards (and their related users) who you follow
+A list of your followers
+A list of people who follow your boards
+A list of boards you follow
+A list of boards you unfollowed after following a user
+The followers and unfollowers of each board
+Redis stores the above lists for each of it’s 70 million users—it basically stores the entire follower graph, sharded by user ID. As you can see by the types of data in the list of lists above, analytical summary information is stored and viewed more like a transactional system. Pinterest’s current group of 70 million users are limited to 100,000 likes—rough math shows that, if the average person liked 25 boards, there would be 1.75 billion relationships between users and boards. If the average was 100 likes, there would be 7 billion relationships. And, this is a core feature—the relationships keep growing every day the system is used.
+
+In a recent post, Raffi Kirkorian, VP of Engineering at Twitter, explained how Redis is used at Twitter to support over 30 billion timeline updates per day based on 5000 tweets per second or 400,000,000 tweets per day. There is no doubt, Twitter’s infrastructure deals with extremely high scale demands. So, next time you get a Tweet from Katy Perry, remember 39 million inserts just occurred on Redis.
+
+In this post, we staple ourselves to a tweet to experience the use case behind Redis and dive into the architecture of Twitter’s giant Redis cluster as we report on portions of Raffi’s talk.
+
+Staple Yourself to a Tweet—Producing and Distributing a Tweet
+Most users only know that, when you follow someone, their tweets show up on your homepage timeline. Yet, there is a lot more to it.
+
+Posting a tweet actually uses several components from the platform services team. This group of engineers develops and operates the machines and applications for the timeline service, tweet service, social graph service, and user service. These services are exposed via Twitter APIs to internal development teams and external developers.
+
+katy-perry-updates-redis-at-twitterOf course, a tweet starts when a user experiences something worth tweeting and decides to capture it. The tweet information passes through load balancers, and hits Twitter’s Write API. There, the tweet begins to follow a process led by something called the fanout daemon. The daemon first does a query against the social graph service called Flock, and Flock provides a list of the followers of the person who tweeted. At this point, the daemon now has the ID of the original user, the tweet ID, and the IDs of all the followers.
+
+Next, the daemon takes the list of followers and begins to iterate through each of the followers’ home timelines, updating each timeline with the latest tweet information. These timelines are stored in memory within Twitter’s Redis cluster and replicated across data centers on three different machines. For each user, the daemon inserts the Tweet ID (8 bytes) in a native list structure in Redis along with the User ID (8 bytes) and some additional information for retweets, replies, and similar system-centric data (4 bytes). Redis doesn’t store the 140 character tweet information itself nor does it store a list of the entire history of tweets by the users that are followed. Instead, the Twitter engineering team limits Redis to storing the last 800 tweet IDs for each home timeline. Even with this limited amount of information, the Redis cluster uses several terabytes of RAM. This allows the Twitter engineering team to cache almost every single active user’s home timeline in memory at any given time and provide the fastest response times possible. These are also written to disk.
+
+So, if you follow Katy Perry, and she tweets, your home timeline representation in Redis is updated along with 39 million other people’s Redis lists.
+
+twitter-redis-architecture-01
+
+Staple Yourself to a Tweet—Tweet Consumption
+While there might be 5000 tweets per second on average and peaks up to 12,000, views are actually what keeps the datastore busy. There are over 300,000 queries per second on home timelines and 30,000 on search-based timelines.
+
+When a user logs in to Twitter or a 3rd party tool that uses the Twitter API, they are presented the home timeline, served from data in the Redis cluster. This is a temporal merge of all the people followed and includes some business rules like stripping out @ replies for people you don’t follow and visibility of retweets. The timeline contains the ID of all the tweets and those IDs are hydrated or rendered with additional data by pulling data for user objects from a system called Gizmoduck and tweet objects from a system called TweetyPie, each with their own caches.
+
+For search, each tweet is tokenized by an ingester that also considers product features and creates the index based on the tags for each word in a tweet. Upon the writing to the index, each Tweet is also ranked by additional information like number of favorites, replies, and retweets. The index is stored in Early Bird machines, a modified Apache Lucene index that is stored in RAM and sharded on a massive cluster, replicating for load.
+
+When a user does a search, a scatter/gather service called Blender queries one of every unique shard for a query match. Blender takes the tweet timeline, merges, re-computes, and sorts the results of a search timeline. Blender also powers the discover page.

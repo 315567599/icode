@@ -1,0 +1,12 @@
+$TTL 1d
+@       IN      SOA    ns.ipo.com. jiangchao375.pingan.com.cn. (
+        2015041001   ; serial#
+        1h           ; refresh, seconds
+        1h           ; retry, seconds
+        1h           ; expire, seconds
+        1h )         ; minimum, seconds
+
+@              IN      NS      ns.ipo.com.
+@              IN      A       192.168.10.1 
+hmw            IN      A       192.168.168.168 
+jiangchao      IN      A       192.168.168.169 

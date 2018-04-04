@@ -1,0 +1,49 @@
+Add note about expire time
+leaning up some default values.
+Merge branch 'upcoming' into develop
+Merge pull request #3136 from melvinsh/patch-1 …
+Removed unnecessary 'else' statement
+Add extra functions to User.
+Add comment.
+Fix formatting of file.
+Cleaning up comments.
+Ignore all .env.*.php files
+Update queue.php …
+Add encrypt option to iron queue config.
+Remove unnecessary line from upgrade guide.
+Added code block.
+Fix typos.
+Add missing comma.
+Updated line to use spaces instead of tabs.
+The default message was not clear …
+update controller alias.
+Fix package name.
+Fix unit test example.
+Update encrypter comment.
+Fix closing div tag.
+changed spaces to tabs
+Adding a few things to the composer.json file.
+Small grammar fix. :eyes: .
+Fix unit test example.
+New welcome page.
+add Simplified Chinese language package
+Fixes 'greater' to 'not greater'. …
+Fix comments on session.
+Incremented version from 3.2.13 to 3.2.14 …
+Turn on Redis clustering by default.
+Add unregister to IoC-Contrainer …
+Added locales configuration.
+
+convert spaces to tabs
+update session config.
+adding unit tests for ioc changes
+formatting fixes
+- namespaces and whitespace
+- fixes phpdoc blocks
+adds tests for OpenID storages and grant types
+Add docs to storage.
+cleaning up comments for my ocd.
+Add storage path configuration.
+
+
+

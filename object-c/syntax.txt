@@ -1,0 +1,38 @@
+Block variables hold references to blocks and are declared using syntax similar to that you use to declare a pointer to a function, except that you use ^ instead of *. For example, the following declares a variable aBlock that references a block that requires three parameters and returns a float value:
+
+int (^oneFrom)(int);
+ 
+oneFrom = ^(int anInt) {
+    return anInt - 1;
+};
+ 
+printf("%d", oneFrom(10));
+// prints "9"
+--------------------------
+Within the Block’s body of code, there are five types of variable:
+
+Global variables are accessible, including static variables that exist within the enclosing lexical scope.
+
+Parameters passed to the Block are accessible (just like parameters to a function).
+
+Stack (non-static) variables local to the enclosing lexical scope are captured as const variables. Their values are taken at the point of the Block expression within the program. In nested Blocks, the value is captured from the nearest enclosing scope.
+
+Variables local to the enclosing lexical scope declared with the __block storage modifier are provided by reference and so are mutable. Any changes are reflected in the enclosing lexical scope, including any other Blocks defined within the same enclosing lexical scope. These are discussed in more detail in __block Variables.
+
+Local variables declared within the lexical scope of the Block, which behave exactly like local variables in a function. Each invocation of the Block provides a new copy of that variable. These variables can in turn be used as const or by-reference variables in Blocks enclosed within the Block.
+
+As noted, trying to assign a new value to x within the Block would result in an error:
+
+int x = 123;
+ 
+void (^printXAndY)(int) = ^(int y) {
+ 
+    x = x + y; // error
+    printf("%d %d\n", x, y);
+};
+To modify a variable within a Block, you use the __block storage type modifier.
+-------------------------
+void dispatch_apply(size_t iterations, dispatch_queue_t queue, void (^block)(size_t));
+------------------------
+
+

@@ -1,0 +1,75 @@
+ 项目的版本库在某些情况虾需要引用其他版本库中的文件，例如公司积累了一套常用的函数库，被多个项目调用，显然这个函数库的代码不能直接放到某个项目的代码中，而是要独立为一个代码库，那么其他项目要调用公共函数库该如何处理呢？分别把公共函数库的文件拷贝到各自的项目中会造成冗余，丢弃了公共函数库的维护历史，这显然不是好的方法。
+
+git submodule
+
+创建需要的本地仓库：
+git --git-dir=lib1.git init --bare
+git --git-dir=lib2.git init --bare
+git --git-dir=project1.git init --bare
+git --git-dir=project2.git init --bare
+
+初始化工作区：
+mkdir ~/submd/ws
+cd ~/submd/ws
+
+ 初始化项目
+
+初始化project1：
+➜ henryyan@hy-hp  ~/submd/ws  git clone ../repos/project1.git 
+Cloning into project1...
+done.
+warning: You appear to have cloned an empty repository.
+ 
+➜ henryyan@hy-hp  ~/submd/ws  cd project1
+➜ henryyan@hy-hp  ~/submd/ws/project1 git:(master) echo "project1" > project-infos.txt
+➜ henryyan@hy-hp  ~/submd/ws/project1 git:(master) ✗ ls
+project-infos.txt
+ 
+➜ henryyan@hy-hp  ~/submd/ws/project1 git:(master) ✗ git add project-infos.txt 
+➜ henryyan@hy-hp  ~/submd/ws/project1 git:(master) ✗ git status
+# On branch master
+#
+# Initial commit
+#
+# Changes to be committed:
+#   (use "git rm --cached <file>..." to unstage)
+#
+#   new file:   project-infos.txt
+#
+➜ henryyan@hy-hp  ~/submd/ws/project1 git:(master) ✗ git commit -m "init project1"
+[master (root-commit) 473a2e2] init project1
+ 1 files changed, 1 insertions(+), 0 deletions(-)
+ create mode 100644 project-infos.txt
+➜ henryyan@hy-hp  ~/submd/ws/project1 git:(master) git push origin master
+Counting objects: 3, done.
+Writing objects: 100% (3/3), 232 bytes, done.
+Total 3 (delta 0), reused 0 (delta 0)
+Unpacking objects: 100% (3/3), done.
+To /home/henryyan/submd/ws/../repos/project1.git
+ * [new branch]      master -> master
+</file>
+
+------------
+为project1添加lib1和lib2
+➜ henryyan@hy-hp  ~/submd/ws/lib2 git:(master) cd ../project1
+➜ henryyan@hy-hp  ~/submd/ws/project1 git:(master) ls
+project-infos.txt
+➜ henryyan@hy-hp  ~/submd/ws/project1 git:(master) git submodule add ~/submd/repos/lib1.git libs/lib1
+Cloning into libs/lib1...
+done.
+➜ henryyan@hy-hp  ~/submd/ws/project1 git:(master) ✗ git submodule add ~/submd/repos/lib2.git libs/lib2
+Cloning into libs/lib2...
+done.
+----------------------
+----------------------
+----------------------
+----------------------
+----------------------
+----------------------
+代码使用人员：
+git clone & git submodule init & git submodule update
+----------------------
+---------------------
+
+
+

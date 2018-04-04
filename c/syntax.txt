@@ -1,0 +1,240 @@
+/*保护头文件重复定义，如果编译器是c++采用c的形式编译*/
+#ifndef http_parser_h
+#define http_parser_h
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* Also update SONAME in the Makefile whenever you change these. */
+#define HTTP_PARSER_VERSION_MAJOR 2
+#define HTTP_PARSER_VERSION_MINOR 4
+#define HTTP_PARSER_VERSION_PATCH 2
+
+
+#ifdef __cplusplus
+}
+#endif
+#endif
+------------------------------------------------------------------
+/*定义int类型*/
+#include <sys/types.h>
+#if defined(_WIN32) && !defined(__MINGW32__) && (!defined(_MSC_VER) || _MSC_VER<1600)
+#include <BaseTsd.h>
+#include <stddef.h>
+typedef __int8 int8_t;
+typedef unsigned __int8 uint8_t;
+typedef __int16 int16_t;
+typedef unsigned __int16 uint16_t;
+typedef __int32 int32_t;
+typedef unsigned __int32 uint32_t;
+typedef __int64 int64_t;
+typedef unsigned __int64 uint64_t;
+#else
+#include <stdint.h>
+#endif
+
+------------------------------------------------------------------
+/*gcc 编译器可以带预定义宏*/
+/* Compile with -DHTTP_PARSER_STRICT=0 to make less checks, but run
+ * faster
+ */
+#ifndef HTTP_PARSER_STRICT
+# define HTTP_PARSER_STRICT 1
+#endif
+------------------------------------------------------------------
+/*typedef 数据结构，这样后续每次写的时候，不用加 struct*/
+typedef struct http_parser http_parser;
+typedef struct http_parser_settings http_parser_settings;
+------------------------------------------------------------------
+/*enum 的使用*/
+enum http_parser_type { HTTP_REQUEST, HTTP_RESPONSE, HTTP_BOTH };
+void http_parser_init(http_parser *parser, enum http_parser_type type);
+
+/* Flag values for http_parser.flags field */
+enum flags
+  { F_CHUNKED               = 1 << 0
+  , F_CONNECTION_KEEP_ALIVE = 1 << 1
+  , F_CONNECTION_CLOSE      = 1 << 2
+  , F_CONNECTION_UPGRADE    = 1 << 3
+  , F_TRAILING              = 1 << 4
+  , F_UPGRADE               = 1 << 5
+  , F_SKIPBODY              = 1 << 6
+  };
+
+------------------------------------------------------------------
+/*bit struct 单位为bit*/
+struct http_parser {
+  /** PRIVATE **/
+  unsigned int type : 2;         /* enum http_parser_type */
+  unsigned int flags : 7;        /* F_* values from 'flags' enum; semi-public */
+  unsigned int state : 7;        /* enum state from http_parser.c */
+  unsigned int header_state : 8; /* enum header_state from http_parser.c */
+  unsigned int index : 8;        /* index into current matcher */
+
+  uint32_t nread;          /* # bytes read in various scenarios */
+  uint64_t content_length; /* # bytes in body (0 if no Content-Length header) */
+
+  /** READ-ONLY **/
+  unsigned short http_major;
+  unsigned short http_minor;
+  unsigned int status_code : 16; /* responses only */
+  unsigned int method : 8;       /* requests only */
+  unsigned int http_errno : 7;
+
+  /* 1 = Upgrade header was present and the parser has exited because of that.
+   * 0 = No upgrade header present.
+   * Should be checked when http_parser_execute() returns in addition to
+   * error checking.
+   */
+  unsigned int upgrade : 1;
+
+  /** PUBLIC **/
+  void *data; /* A pointer to get hook to the "connection" or "socket" object */
+};
+------------------------------------------------------------------
+/*函数指针*/
+typedef int (*http_data_cb) (http_parser*, const char *at, size_t length);
+typedef int (*http_cb) (http_parser*);
+
+struct http_parser_settings {
+  http_cb      on_message_begin;
+  http_data_cb on_url;
+  http_data_cb on_status;
+  http_data_cb on_header_field;
+  http_data_cb on_header_value;
+  http_cb      on_headers_complete;
+  http_data_cb on_body;
+  http_cb      on_message_complete;
+};
+
+static int on_info(http_parser* p) {
+  return 0;
+}
+
+
+static int on_data(http_parser* p, const char *at, size_t length) {
+  return 0;
+}
+
+static http_parser_settings settings = {
+  .on_message_begin = on_info,
+  .on_headers_complete = on_info,
+  .on_message_complete = on_info,
+  .on_header_field = on_data,
+  .on_header_value = on_data,
+  .on_url = on_data,
+  .on_status = on_data,
+  .on_body = on_data
+};
+
+--------------------------------------------------------------------------------
+------------------------------------------------------------------
+/*bit 操作*/
+#define HTTP_PARSER_VERSION_MAJOR 2
+#define HTTP_PARSER_VERSION_MINOR 4
+#define HTTP_PARSER_VERSION_PATCH 2
+
+/* Returns the library version. Bits 16-23 contain the major version number,
+ * bits 8-15 the minor version number and bits 0-7 the patch level.
+ * Usage example:
+ *
+ *   unsigned long version = http_parser_version();
+ *   unsigned major = (version >> 16) & 255;
+ *   unsigned minor = (version >> 8) & 255;
+ *   unsigned patch = version & 255;
+ *   printf("http_parser v%u.%u.%u\n", major, minor, patch);
+ */
+
+
+unsigned long
+http_parser_version(void) {
+  return HTTP_PARSER_VERSION_MAJOR * 0x10000 |
+         HTTP_PARSER_VERSION_MINOR * 0x00100 |
+         HTTP_PARSER_VERSION_PATCH * 0x00001;
+}
+
+--------------------------------------------------------------------------------
+/*
+ * long 最大值  
+ * 此处不是减号
+ * 是-1 转为 正整数
+ * 计算机内部全部使用补码，-1的补码与最大long数表示一样
+ */
+#ifndef ULLONG_MAX
+# define ULLONG_MAX ((uint64_t) -1) /* 2^64-1 */
+#endif
+
+(1)、在计算机系统中，数值一律用补码来表示（存储）。 主要原因：使用补码，可以将符号位和其它位统一处理；同时，减法也可按加法来处理。另外，两个用补 码表示的数相加时，如果最高位（符号位）有进位，则进位被舍弃。 
+(2)、补码与原码的转换过程几乎是相同的
+
+
+（1）正数的补码
+　　与原码相同。 　　【例1】+9的补码是00001001。(备注：这个+9的补码说的是用8位的2进制来表示补码的，补码表示方式很多，还有16位2进制补码表示形式，以及32位2进制补码表示形式等。)
+
+（2）负数的补码
+    　　符号位为1，其余位为该数绝对值的原码按位取反；然后整个数加1。 　　同一个数字在不同的补码表示形式里头，是不同的。比方说-15的补码，在8位2进制里头是11110001，然而在16位2进制补码表示的情况下，就成了1111111111110001。在这篇补码概述里头涉及的补码转换默认了把一个数转换成8位2进制的补码形式，每一种补码表示形式都只能表示有限的数字。
+--------------------------------------------------------------------------------
+
+/* Macros for character classes; depends on strict-mode  */
+#define CR                  '\r'
+#define LF                  '\n'
+#define LOWER(c)            (unsigned char)(c | 0x20)
+#define IS_ALPHA(c)         (LOWER(c) >= 'a' && LOWER(c) <= 'z')
+#define IS_NUM(c)           ((c) >= '0' && (c) <= '9')
+#define IS_ALPHANUM(c)      (IS_ALPHA(c) || IS_NUM(c))
+#define IS_HEX(c)           (IS_NUM(c) || (LOWER(c) >= 'a' && LOWER(c) <= 'f'))
+#define IS_MARK(c)          ((c) == '-' || (c) == '_' || (c) == '.' || \
+  (c) == '!' || (c) == '~' || (c) == '*' || (c) == '\'' || (c) == '(' || \
+  (c) == ')')
+#define IS_USERINFO_CHAR(c) (IS_ALPHANUM(c) || IS_MARK(c) || (c) == '%' || \
+  (c) == ';' || (c) == ':' || (c) == '&' || (c) == '=' || (c) == '+' || \
+  (c) == '$' || (c) == ',')
+
+#define STRICT_TOKEN(c)     (tokens[(unsigned char)c])
+--------------------------------------------------------------------------------
+/*双重指针*/
+
+  static const char *all_methods[] = {
+    "DELETE",
+    "GET",
+    "HEAD",
+    "POST",
+    "PUT",
+    //"CONNECT", //CONNECT can't be tested like other methods, it's a tunnel
+    "OPTIONS",
+    "TRACE",
+    "COPY",
+    "LOCK",
+    "MKCOL",
+    "MOVE",
+    "PROPFIND",
+    "PROPPATCH",
+    "UNLOCK",
+    "REPORT",
+    "MKACTIVITY",
+    "CHECKOUT",
+    "MERGE",
+    "M-SEARCH",
+    "NOTIFY",
+    "SUBSCRIBE",
+    "UNSUBSCRIBE",
+    "PATCH",
+    0 };
+
+  const char **this_method;
+  for (this_method = all_methods; *this_method; this_method++) {
+    char buf[200];
+    sprintf(buf, "%s / HTTP/1.1\r\n\r\n", *this_method);
+    test_simple(buf, HPE_OK);
+  }
+--------------------------------------------------------------------------------
+/*多维数组赋值*/
+int array[3][5] =
+{
+    {3, 6, 9, -8, 1},
+    {2, 4, 6, 8, 10},
+    {11, 7, 5, 3, 2}
+};
+--------------------------------------------------------------------------------
+
+--------------------------------------------------------------------------------

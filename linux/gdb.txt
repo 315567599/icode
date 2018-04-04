@@ -1,0 +1,15 @@
+(gdb) disass main
+Dump of assembler code for function main:
+   0x000000000040050c <+0>:     push   %rbp
+   0x000000000040050d <+1>:     mov    %rsp,%rbp
+   0x0000000000400510 <+4>:     mov    $0x4005cc,%edi
+   0x0000000000400515 <+9>:     callq  0x4003e0 <puts@plt>
+   0x000000000040051a <+14>:    pop    %rbp
+   0x000000000040051b <+15>:    retq
+End of assembler dump.
+(gdb) x/20x main
+0x40050c <main>:        0xe5894855      0x4005ccbf      0xfec6e800      0xc35dffff
+0x40051c:       0x90909090      0x6666c3f3      0x2e666666      0x00841f0f
+0x40052c:       0x00000000      0x246c8948      0x64894cd8      0x8d48e024
+0x40053c <__libc_csu_init+12>:  0x2001772d      0x258d4c00      0x00200168      0x246c894c
+0x40054c <__libc_csu_init+28>:  0x74894ce8      0x894cf024      0x48f8247c      0xd0245c89

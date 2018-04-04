@@ -1,0 +1,11 @@
+$TTL 1d
+@       IN      SOA     jiangchao.com. root.jiangchao.com. (
+        2014112501   ; serial#
+        1h           ; refresh, seconds
+        1h           ; retry, seconds
+        1h           ; expire, seconds
+        1h )         ; minimum, seconds
+
+@               IN      NS      jiangchao.com.
+@               IN      A       192.168.10.1 
+www     IN      A       192.168.10.2 

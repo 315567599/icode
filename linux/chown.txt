@@ -1,0 +1,4 @@
+groupadd mysql
+useradd -g mysql mysql
+chown -R mysql:mysql /usr/local/mysql
+

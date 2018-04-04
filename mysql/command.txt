@@ -1,0 +1,86 @@
+mysql> RENAME TABLE cb_hft TO cb_hft_20130719;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> CREATE TABLE cb_hft like cb_hft_20130719;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> show tables;
++-----------------+
+| Tables_in_CB    |
++-----------------+
+| NSpremium       |
+| cb_hft          |
+| cb_hft_20130710 |
+| cb_hft_20130712 |
+| cb_hft_20130715 |
+| cb_hft_20130716 |
+| cb_hft_20130719 |
++-----------------+
+7 rows in set (0.00 sec)
+
+导出表到csv:
+mysql> SELECT
+  SecurityID,TradeTime,PreClosePx,OpenPx,HighPx,LowPx,LastPx, 
+  BidSize1,BidPx1,BidSize2,BidPx2,BidSize3,BidPx3,BidSize4,BidPx4,BidSize5,BidPx5,
+  OfferSize1,OfferPx1,OfferSize2,OfferPx2,OfferSize3,OfferPx3,OfferSize4,OfferPx4,OfferSize5,OfferPx5,
+  NumTrades,TotalVolumeTrade,TotalValueTrade,PE,PE1,PriceChange1,PriceChange2,Positions
+FROM cb_hft_20130712
+INTO OUTFILE '/tmp/export_cb_hft_20130712.csv'  FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n';
+--------------------------------------------------------------------------------
+
+在Mysql的命令行工具里面给select查询加入一个\G参数。横向的表结构会转为使用纵向表结构输出，利于阅读。
+（1）select * from deal;   ---横行输出
+  (2)  select * from deal \G ; ---纵向输出
+
+  ----------
+  压缩备份数据库
+  mysqldump -h hostname -u userid --password dbname | gzip > backup.sql.gz
+
+  ----------
+  UPDATE USER SET user_password = MD5(CONCAT(user_id, '-', 
+                 MD5('somepass'))) WHERE user_name = 'someuser';
+
+======================
+
+SELECT * FROM ipblocks WHERE (ipb_address='131.179.64.150' OR ipb_user=2)
+SHOW COLUMNS FROM cur LIKE 'cur_title'
+SELECT 1 FROM user_newtalk WHERE user_id=2
+SELECT MAX(rc_timestamp) AS lastmod FROM recentchanges
+DELETE FROM objectcache WHERE exptime<'2007-11-30 02:22:11'
+
+=========
+create table t_user_qhzx_bak_ops2091 like t_user_qhzx; 
+alter table t_user_qhzx_bak_ops2091 drop index sHash; 
+insert into t_user_qhzx_bak_ops2091 select * from t_user_qhzx; 
+delete from t_user_qhzx;
+
+
+---------
+select sum(iApplyAmount),count(distinct(iUserID)) from t_hfd_order where iCreateTime >= unix_timestamp('2015-01-01') and iCreateTime < unix_timestamp('2016-01-01') and iStatus = 1; 
+---
+select
+    case
+        when iTradeType = 2 then '存入'
+        when iTradeType in (3,5) then '提现'
+        when iTradeType = 4 then '支付'
+    end as '交易类别',
+    count(distinct iUserID) as '人数',
+    sum(iTradeAmount) / 100 as '金额'
+from
+    t_hfb_trade_log
+where
+    iStatus = 4
+    and
+    iCreateTime between unix_timestamp('2015-01-01 00:00:00') and unix_timestamp('2016-01-01 00:00:00')
+group by iTradeType;
+----------------
+规范说明：
+表名。名字前缀："t_"，名词以单数形式。不合法的命名举例：haoguanjia_db.t_orders。含义简洁明确，使用英文语义。
+字段名。驼峰命名形式，首字母体现字段类型。i：整型，s：字符串类型，f：小数类型等。
+字段类型。小数：float，字符串：char, varchar, text（特殊业务才允许），时间：timestamp, datetime。
+索引。名字前缀：“idx_"，唯一索引：”uidx_"。索引创建情况需评审业务会使用的查询更新语句。
+保留字段。iAutoID 每个表的主键，iStatus软删除标志，iCreateTime行创建时间，iUpdateTime行更新时间。业务需要看是否可以复用这两个字段或者新建。
+环境。开发环境定义需与线上环境保持一致，无用废弃表请rename成：tableName_invalid（开发环境）
+
+--------
+

@@ -1,0 +1,20 @@
+gcc编译的时候提供了预定义功能，参数是-D,  通过man gcc可以了解更多：
+-D name
+           Predefine name as a macro, with definition 1.
+
+                  -D name=definition
+                             Predefine name as a macro, with definition definition.  The contents of definition are tokenized and processed as if they appeared during translation phase three in a #define directive.  In particular, the definition will be truncated by embedded new-line characters.
+
+                             可以通过以下例子解释一下：
+                             int main()
+{
+        #ifdef HELLO
+        printf("HELLO defined\n");
+            #else
+            printf("HELLO not define\n");
+                #endif
+
+                return 0;
+}
+在该程序中，判断是否已经定义了宏DEBUG,从而输出相应的语句。
+如果编译该程序时采用了gcc -DHELLO, 则输出：HELLO defined

@@ -1,0 +1,18 @@
+Creat a session, assign it to variable sess so we can call it later.
+Within the session,evaluate the graph to fetch the value of a.
+
+import tensorflow as tf
+a = tf.add(3,5)
+sess = tf.Session()
+print(sess.run(a))
+sess.close()
+
+http://web.stanford.edu/class/cs224n/lectures/lecture6.pdf
+-----------------------------------------------------------------------------------------------
+You have to initialize your variables
+The easiest way is initializing all variables at once:
+
+with tf.Session() as sess:
+    sess.run(tf.global_variables_initializer())
+
+** Initializer is an op. You need to execute it within the context of a session

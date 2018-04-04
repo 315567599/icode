@@ -1,0 +1,28 @@
+人工智能是新的电力。
+作为一种通用技术，人工智能（AI）和机器学习（ML）在几乎每个行业都有潜在的用例，并能够重塑人们生活和经营方式。 近十年来深度学习的突破，使得人工智能在日常生活中的应用越来越广泛，为该领域的进一步发展铺平了道路。
+http://mooc.study.163.com/learn/2001281002?tid=2001392029#/learn/content?type=detail&id=2001701005
+http://colah.github.io/posts/2015-08-Understanding-LSTMs/
+https://www.csie.ntu.edu.tw/~yvchen/f106-adl/syllabus.html 李宏毅
+http://web.stanford.edu/class/cs224n/syllabus.html    (CS224n: Natural Language Processing with Deep Learning)
+https://www.youtube.com/watch?v=yZAmA00mF7s&index=4&list=PLjSwXXbVlK6IHzhLOMpwHHLjYmINRstrk tensorflow中文教程视频
+http://vision.stanford.edu/teaching/cs231n/syllabus.html(CS231n: Convolutional Neural Networks for Visual Recognition
+)
+http://cs231n.github.io/optimization-2/ (backprop)
+http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/  Recurrent Neural Networks Tutorial, Part 1 – Introduction to RNNs
+http://cs231n.github.io/neural-networks-case-study/ (手工实现一个两层神经网络)
+http://web.stanford.edu/class/cs224n/archive/WWW_1617/lectures/vanishing_grad_example.html 梯度消失
+-----------------------------
+https://cs.nyu.edu/~yann/research/cface/index.html
+http://yann.lecun.com/    Director of AI Research, Facebook
+
+-----------------------------
+Classifier                                              Error Rate
+Linear Classifier, binocular                            30.2% error
+K-Nearest Neighbors on raw stereo images                18.4% error
+K-Nearest Neighbors on 95 PCA features                  16.6 error
+Pairwise Support Vector Machine on raw stereo images    NO CONVERGENCE
+Pairwise SVM on 48x48 monocular images                  13.9% error
+Pairwise SVM on 32x32 monocular images                  12.6% error
+Pairwise SVM on 95 PCA features                         13.3 error
+Convolutional Network "LeNet7"                          6.6% error
+Convolutional Network "LeNet7" with pose manifold       6.2% error

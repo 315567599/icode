@@ -1,0 +1,19 @@
+irssi（命令行）
+查看命令
+/help
+命令使用帮助
+/help 命令
+连接服务器
+/connect 服务器
+改名字
+/nick 新昵称
+进入频道
+/join #linuxba
+离开频道
+/part
+退出服务器
+/quit
+和别人开小窗单独聊天
+/query 昵称|#频道
+
+irc.freenode.net

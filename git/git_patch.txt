@@ -1,0 +1,21 @@
+# Convert the commit to a git patch file
+jdoe@laptop:~/Dev/mediawiki/core (TXXXXX)$ git format-patch HEAD^ --stdout > ~/TXXXXX.patch
+
+# Copy it to your home directory on tin (scp defaults: protocol=ssh, username=local username, target directory=home directory)
+jdoe@laptop:~/Dev/mediawiki/core (TXXXXX)$ scp ~/TXXXXX.patch tin.eqiad.wmnet
+
+# Log into tin and go to the git dir
+jdoe@laptop:~/Dev/mediawiki/core$ ssh tin.eqiad.wmnet
+jdoe@tin:~$ cd /srv/mediawiki-staging/php-1.20wmf10
+# Sign off uses your .gitconfig (on tin) to determine name and e-mail address.
+jdoe@tin:/srv/mediawiki-staging/php-1.20wmf10 (wmf/1.20wmf10)$ git am --signoff < ~/TXXXXX.patch
+
+# Move the .patch file to /srv/patches/<branch>/core/<order>-TXXXXX.patch (for core patches)
+# or /srv/patches/<branch>/extensions/ExtensionName/<order>-TXXXXX.patch (for extension patches,
+# create the directory if it doesn't exist already). <order> should be chosen to be the next, sequential
+# number for files in the given directory.
+jdoe@tin:/srv/mediawiki-staging/php-1.20wmf10 (wmf/1.20wmf10)$ mv ~/TXXXXX.patch /srv/patches/php-1.20wmf10/core/01-TXXXXX.patch
+jdoe@tin:~$ cd /srv/patches/
+jdoe@tin:/srv/patches (master)$ git add .
+# The security patches directory is a git repository of its own, to track patches.
+jdoe@tin:/srv/patches (master)$ git commit -a -m 'Add php-1.20wmf10/core/01-TXXXXX.patch'

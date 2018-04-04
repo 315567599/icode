@@ -1,0 +1,93 @@
+一、FastDFS简介
+
+FastDFS(最新版本v3.04)是一个开源的轻量级分布式文件系统，它用纯C语言实现，支持Linux、FreeBSD、AIX等UNIX系统。它只能通过专有API对文件进行存取访问，不支持POSIX接口方式，不能mount使用，不是系统级的分布式文件系统，而是应用级的分布式文件存储服务。
+
+二、FastDFS用途
+
+1）FastDFS主要解决了大容量的文件存储和高并发访问的问题，文件存取时实现了负载均衡。
+
+2）FastDFS实现了软件方式的RAID，可以使用廉价的IDE硬盘进行存储 ，支持存储服务器在线扩容。
+
+3）FastDFS特别适合大中型网站使用，用来存储资源文件（如：图片、文档、音频、视频等等。
+
+三、FastDFS原理
+
+存储节点采用了分组（group）的方式。存储系统由一个或多个group组成，group与group之间的文件是相互独立的，所有group的文件容量累加就是整个存储系统中的文件容量。一个group可以由一台或多台存储服务器组成，一个group下的存储服务器中的文件都是相同的，group中的多台存储服务器起到了冗余备份和负载均衡的作用（一个组的存储容量为该组内存储服务器容量最小的那个，不同组的Storage server之间不会相互通信，同组内的Storage server之间会相互连接进行文件同步）。
+
+在group中增加服务器时，同步已有的文件由系统自动完成，同步完成后，系统自动将新增服务器切换到线上提供服务。
+
+当存储空间不足或即将耗尽时，可以动态添加group。只需要增加一台或多台服务器，并将它们配置为一个新的group，这样就扩大了存储系统的容量。
+
+FastDFS只有两个角色：Tracker server和Storage server。Tracker server作为中心结点，其主要作用是负载均衡和调度。Tracker server在内存中记录分组和Storage server的状态等信息，不记录文件索引信息，占用的内存量很少。另外，客户端（应用）和Storage server访问Tracker server时，Tracker server扫描内存中的分组和Storage server信息，然后给出应答。由此可以看出Tracker server非常轻量化，不会成为系统瓶颈。
+
+FastDFS中的Storage server在其他文件系统中通常称作Trunk server或Data server。Storage server直接利用OS的文件系统存储文件。FastDFS不会对文件进行分块存储，客户端上传的文件和Storage server上的文件一一对应（FastDFS中的文件标识分为两个部分：组名和文件名，二者缺一不可）。
+
+四、Nginx环境调用FastDFS要求
+
+1）编译安装 nginx时附带 fastdfs-nginx-module 模块 –add-module=/root/fastdfs-nginx-module/src
+
+2）修改 nginx 配置文件增加 ngx_fastdfs_module;
+
+3）编译fastdfs_client.so php扩展模块
+
+4）修改 php.ini 让 php-fpm 支持fastdfs_client 扩展模块 extension = fastdfs_client.so
+
+注意：如果要使fastdfs支持web和开机自动脚本(默认是不支持的)，需要修改make.sh文件
+
+#WITH_HTTPD=1
+
+#WITH_LINUX_SERVICE=1
+
+（因为是给nginx添加fastdfs模块，所以不需要fastdfs支持 http 所以就不需要去掉 #WITH_HTTPD=1 前的注释了）。
+
+五、所遇问题
+
+1. FastDFS适用的场景以及不适用的场景？
+
+FastDFS是为互联网应用量身定做的一套分布式文件存储系统，非常适合用来存储用户图片、视频、文档等文件。对于互联网应用，和其他分布式文件系统相比，优势非常明显。FastDFS没有对文件做分块存储，因此不太适合分布式计算场景。
+
+2. FastDFS需要的编译和运行环境是怎样的？
+
+FastDFS Server仅支持unix系统，在Linux和FreeBSD测试通过。在Solaris系统下网络通信方面有些问题。编译需要的其他库文件有pthread和libevent。pthread使用系统自带的即可。对libevent的版本要求为1.4.x，建议使用最新的stable版本，如1.4.14b。注意，千万不要使用libevent 2.0 stable以前的版本。
+
+3. 启动storage server时，一直处于僵死状态。
+
+启动storage server，storage将连接tracker server，如果连不上，将一直重试。直到连接成功，启动才算真正完成。
+
+出现这样情况，请检查连接不上tracker server的原因。
+
+友情提示：从V2.03以后，多tracker server在启动时会做时间上的检测，判断是否需要从别的tracker server同步4个系统文件。
+
+触发时机是第一个storage server连接上tracker server后，并发起join请求。
+
+如果集群中有2台tracker server，而其中一台tracker没有启动，可能会导致storage server一直处于僵死状态。
+
+4. 执行fdfs_test或fdfs_test1上传文件时，服务器返回错误号2
+
+错误号2表示没有ACTIVE状态的storage server。可以执行fdfs_monitor查看服务器状态。
+
+5. 如何删除无效的storage server？
+
+可以使用fdfs_monitor来删除。命令行如下：
+
+/usr/local/bin/fdfs_monitor delete
+
+例如：
+
+/usr/local/bin/fdfs_monitor /etc/fdfs/client.conf delete group1 192.168.0.100
+
+注意：如果被删除的storage server的状态是ACTIVE，也就是该storage server还在线上服务的情况下，是无法删除掉的。
+
+6. nginx和apache扩展模块与FastDFS server版本对应关系
+
+扩展模块1.05： 针对FastDFs server v2.x，要求server版本大于等于v2.09
+
+扩展模块1.07及以上版本： 针对FastDFs server v3.x
+
+7. 上传文件失败，返回错误码28，这是怎么回事？
+
+返回错误码28，表示磁盘空间不足。注意FastDFS中有预留空间的概念，在tracker.conf中设置，配置项为：reserved_storage_space，缺省值为4GB，即预留4GB的空间。请酌情设置reserved_storage_space这个参数，比如可以设置为磁盘总空间的20%左右。
+
+8. nginx扩展模块，不能正常显示图片的问题
+
+在配置文件/etc/fdfs/mod_fastdfs.conf中，缺省的设置是这样的：http.need_find_content_type=false这个参数在nginx中需要设置为true，apache中应该设置为false

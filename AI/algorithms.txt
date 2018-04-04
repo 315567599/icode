@@ -1,0 +1,10 @@
+1、实体词识别算法
+https://www.zhihu.com/question/19994255
+
+大致命名实体识别的方法可以可以分为四个大类型：
+有监督学习方法：HMM http://www.nlpr.labs.gov.cn/2005papers/gjhy/gh71.pdf
+SVM Biomedical named entity recognition using two-phase model based on SVMs
+CRF http://psb.stanford.edu/psb11/conference-materials/proceedings%201996-2010/psb08/leaman.pdf
+当然还有决策树最大熵等方法。基本每个模型都会在这个问题上试一遍的。
+
+无监督学习方法：Unsupervised named-entity extraction from the Web: An experimental study半监督学习方法：Minimally-supervised extraction of entities from text advertisements混合方法：多种模型结合 Recognizing named entities in tweets主要介绍三种主流算法，CRF，字典法和混合方法。CRF：用过CRF的都知道，CRF是一个序列标注模型，指的是把一个词序列的每个词打上一个标记。一般通过，在词的左右开一个小窗口，根据窗口里面的词，和待标注词语来实现特征模板的提取。最后通过特征的组合决定需要打的tag是什么。而在CRF for Chinese NER这个任务中，提取的特征大多是该词是否为中国人名姓氏用字，该词是否为中国人名名字用字之类的，True or false的特征。所以一个可靠的百家姓的表就十分重要啦~在国内学者做的诸多实验中，效果最好的人名可以F1测度达到90%，最差的机构名达到85%。基于条件随机场的中文命名实体识别特征比较研究--《第四届全国信息检索与内容安全学术会议论文集（上）》2008年字典法：字典法需要掌握的是一种快速搜索算法trie-tree，我相信很多人应该对这个算法已经有所了解。在NER中就是把每个字都当开头的字放到trie-tree中查一遍，查到了就是NE。中文的trie-tree需要进行哈希，因为中文字符太多了，不像英文就26个。混合法：对六类不同的命名实体采取不一样的手段进行处理，例如对于人名，进行字级别的条件概率计算。例如我们需要算其中Sur代表中国人姓氏，Dgb代表中国人名首字，Dge代表中国人名尾字。而机构则在词级别进行此概率计算。我知道的系统有：中文1、哈工大 语言云（语言技术平台云 LTP-Cloud）2、上海交大  赵海 主页 分词 自然语言 计算语言学 机器学习英文：Stanford NERBANNER（生物医学）Minor Third

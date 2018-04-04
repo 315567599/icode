@@ -1,0 +1,4 @@
+http://www.matrix67.com/blog/
+矩阵奇异值分解SVD http://charleshm.github.io/2016/03/Singularly-Valuable-Decomposition/
+矩阵奇异值分解SVD 英文教程: http://websites.uwlax.edu/twill/svd/action/index.html#action
+http://www.ams.org/samplings/feature-column/fcarc-svd

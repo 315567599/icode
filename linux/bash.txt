@@ -1,0 +1,33 @@
+Navigate up the directory using ..n : In the example below, ..4 is used to go up 4 directory level, ..3 to go up 3 directory level, ..2 to go up 2 directory level. Add the following alias to the .bash_profile and re-login.
+
+alias ..="cd .."
+alias ..2="cd ../.."
+alias ..3="cd ../../.."
+alias ..4="cd ../../../.."
+alias ..5="cd ../../../../.."
+
+# cd /tmp/very/long/directory/structure/that/is/too/deep
+#..4
+[Note: use ..4 to go up 4 directory level]
+# pwd
+/tmp/very/long/directory/structure/
+----------------------------
+alt+b: 光标左移一个单词
+ctrl+a:光标移到行首
+ctrl+e:光标移到行尾
+ctrl+k:清除光标后至行尾的内容。
+ctrl+d: 删除光标所在字母;注意和backspace以及ctrl+h的区别，这2个是删除光标前的字符
+ctrl+r:搜索之前打过的命令。会有一个提示，根据你输入的关键字进行搜索bash的history
+ctrl+m : 输入回车 
+
+ctrl+u: 清除光标前至行首间的所有内容。
+ctrl+w: 移除光标前的一个单词
+ctrl+t: 交换光标位置前的两个字符
+ctrl+y: 粘贴或者恢复上次的删除 
+--------------------
+export CDPATH=/etc
+[ljf@localhost ~]$ cd mail
+/etc/mail
+
+du -sh ./*
+

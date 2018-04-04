@@ -1,0 +1,3 @@
+Hit W for the Quick Selection Tool 
+Hit Option-Command-J to create a copy of the tassel in a new layer. 
+

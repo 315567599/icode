@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<title>测试上传类</title>
+	</head>
+
+	<body>
+		<form action="http://172.16.20.122:666/test/testupload.php" enctype="multipart/form-data" method="post">
+			<p>
+				Please specify a file, or a set of files:<br>
+				<input type="file" name="attach[]" size="40">
+				<br>
+				<input type="file" name="attach[]" size="40">
+
+				<br>
+				<input type="file" name="attach[]" size="40">
+
+				<br>
+				<input type="file" name="attach[]" size="40">
+
+				<br>
+				<input type="file" name="attach[]" size="40">
+			</p>
+			<div>
+				<input type="submit" value="Send">
+			</div>
+		</form>
+	</body>
+</html>

@@ -1,0 +1,5 @@
+Differential derivatives 区别 怎么理解微分和导数的区别？
+http://web.stanford.edu/class/cs224n/readings/review-differential-calculus.pdf
+
+数学复习第一遍的理解是，导数是曲线在那个点的切线斜率，而微分是那个切线的一元线性方程。
+微分的几何意义是用局部切线段近似代替曲线段，即非线性函数局部线性化。

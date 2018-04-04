@@ -1,0 +1,13 @@
+https://github.com/Respect/Validation
+php各类验证：
+
+$number = 123;
+v::numeric()->validate($number); //true
+
+-----------------------------------
+https://phpunit.de/index.html php单元测试
+
+http://fabien.potencier.org/article/11/what-is-dependency-injection
+
+https://doc.wikimedia.org/mediawiki-core/master/php/group__FileBackend.html#intro :wikimedia 技术文档
+

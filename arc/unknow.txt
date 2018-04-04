@@ -1,0 +1,31 @@
+zabbix:The Enterprise-class Monitoring Solution for Everyone
+saltStack:自动化运维，批量执行命令
+apache-flume-1.5.0.-bin
+zeromq
+ntpd
+solr
+Sphinx:支持mysql全文搜索
+Elasticsearch
+lucene: (solr, elasticsearch 都是基于它） 
+MapTail:流量日志实时访问工具
+LVS+Keepalived
+RabbitMQ
+MQTT
+Hadoop
+NOSQL
+http://in.sdo.com/?p=1766
+ios apns
+cloudera
+zookeeper
+HA集群搭建示例(hdfs+yarn+spark+zookeeper)
+mongodb
+shark
+kissy:javascript lib
+https://www.atlassian.com/software/confluence
+Fabric,
+DNS Round-Robin :dns论调
+Munin:linux 主机监控
+ MongoDB’s ObjectId
+https://get.fabric.io/
+Axure
+http://highscalability.com/blog/2015/3/9/applovin-marketing-to-mobile-consumers-worldwide-by-processi.html

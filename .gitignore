@@ -1,0 +1,5 @@
+*.o
+core.*
+.Rhistory
+.idea
+AI/inception_model/*

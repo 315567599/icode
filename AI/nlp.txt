@@ -1,0 +1,10 @@
+http://web.stanford.edu/class/cs224n/syllabus.html CS224n: Natural Language Processing with Deep Learning
+https://web.stanford.edu/~jurafsky/slp3/4.pdf  chain rule of probability
+https://www.zhihu.com/question/19895141
+http://web.stanford.edu/class/cs224n/lectures/lecture8.pdf   n-gram language Model
+http://www.52nlp.cn/
+
+https://blog.csdn.net/malefactor/article/details/50725480 序列标注
+https://www.ltp-cloud.com/intro/#sdp_how
+https://arxiv.org/pdf/1409.0473.pdf Neural machine translation
+http://keras-cn.readthedocs.io/en/latest/layers/recurrent_layer/

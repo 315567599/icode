@@ -1,0 +1,3 @@
+如何让CI框架支持service层
+
+http://www.bitscn.com/pdb/php/201411/404708.html

@@ -1,0 +1,23 @@
+The reason is that php://input returns all the raw data after the HTTP-headers of the request, regardless of the content type.
+
+The PHP superglobal $_POST, only is supposed to wrap data that is either
+
+application/x-www-form-urlencoded (standard content type for simple form-posts) or
+multipart/form-data-encoded (mostly used for file uploads)
+    This is because these are the only content types that must be supported by user agents. So the server and PHP traditionally don't expect to receive any other content type (which doesn't mean they couldn't).
+
+    So, if you simply POST a good old HTML form, the request looks something like this:
+
+    POST /page.php HTTP/1.1
+
+    key1=value1&key2=value2&key3=value3
+    But if you are working with Ajax a lot, this probaby also includes exchanging more complex data with types (string, int, bool) and structures (arrays, objects), so in most cases JSON is the best choice. But a request with a JSON-payload would look something like this:
+
+    POST /page.php HTTP/1.1
+
+{"key1":"value1","key2":"value2","key3":"value3"}
+The content would now be application/json (or at least none of the above mentioned), so PHP's $_POST-wrapper doesn't know how to handle that (yet).
+
+The data is still there, you just can't access it through the wrapper. So you need to fetch it yourself in raw format with file_get_contents('php://input') (as long as it's not multipart/form-data-encoded).
+
+This is also how you would access XML-data or any other non-standard content type.

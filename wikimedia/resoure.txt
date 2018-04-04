@@ -1,0 +1,8 @@
+http://www.mediawiki.org/wiki/Developer_hub
+http://www.mediawiki.org/wiki/Category:MediaWiki_Virtual_Library_(MVL)
+http://www.mediawiki.org/wiki/Requests_for_comment
+http://www.mediawiki.org/wiki/Architecture_guidelines
+代码贡献登录:https://wikitech.wikimedia.org/wiki/Special:Preferences
+wikishell: ssh jiangchao@bastion.wmflabs.org
+http://www.mediawiki.org/wiki/Manual:Suitability_of_tables_for_sharing
+

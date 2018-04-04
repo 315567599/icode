@@ -1,0 +1,28 @@
+The Inversion of Control (IoC) and Dependency Injection (DI) patterns are all about removing dependencies from your code.
+
+For example, say your application has a text editor component and you want to provide spell checking. Your standard code would look something like this:
+
+public class TextEditor
+{
+    private SpellChecker checker;
+    public TextEditor()
+    {
+        checker = new SpellChecker();
+    }
+}
+
+What we've done here is create a dependency between the TextEditor and the SpellChecker. In an IoC scenario we would instead do something like this:
+
+public class TextEditor
+{
+    private ISpellChecker checker;
+    public TextEditor(ISpellChecker checker)
+    {
+        this.checker = checker;
+    }
+}
+
+Now, the client creating the TextEditor class has the control over which SpellChecker implementation to use. We're injecting the TextEditor with the dependency.
+
+
+Good clear example. However, suppose rather than requiring the ISpellChecker interface be passed to the object's constructor, we exposed it as a settable property (or SetSpellChecker method). Would this still constitute IoC? 

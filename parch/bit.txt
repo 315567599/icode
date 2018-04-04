@@ -1,0 +1,55 @@
+What is a bit? A bit is a representation of 1 or 0. Basically OFF(0) and ON(1)
+
+What is a byte? A byte is made up of 8 bits and the highest value of a byte is 255, which would mean every bit is set. We will look at why a byte's maximum value is 255.
+
+-------------------------------------------
+|      1 Byte ( 8 bits )                  |
+-------------------------------------------
+|Place Value | 128| 64| 32| 16| 8| 4| 2| 1|     
+-------------------------------------------
+
+This representation of 1 Byte
+
+1 + 2 + 4 + 8 + 16 + 32 + 64 + 128 = 255 (1 Byte)
+A few examples for better understanding
+The "AND" operator: &
+
+$a =  9;
+$b = 10;
+echo $a & $b;
+
+This would output the number 8. Why? Well let's see using our table example.
+
+-------------------------------------------
+|      1 Byte ( 8 bits )                  |
+-------------------------------------------
+|Place Value | 128| 64| 32| 16| 8| 4| 2| 1|     
+-------------------------------------------
+|      $a    |   0|  0|  0|  0| 1| 0| 0| 1|    
+-------------------------------------------
+|      $b    |   0|  0|  0|  0| 1| 0| 1| 0|
+------------------------------------------- 
+
+So you can see from the table the only bit they share together is the 8 bit.
+
+Second example
+
+$a =  36;
+$b = 103;
+echo $a & $b; // This would output the number 36.
+$a = 00100100
+$b = 01100111
+
+The two shared bits are 32 and 4, which when added together return 36.
+The "Or" operator: |
+
+$a =  9;
+$b = 10;
+echo $a | $b;
+
+This would output the number 11. Why?
+
+$a = 00001001
+$b = 00001010
+
+You will notice that we have 3 bits set, in the 8, 2, and 1 columns. Add those up: 8+2+1=11.

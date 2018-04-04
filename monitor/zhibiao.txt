@@ -1,0 +1,10 @@
+7 million users and growing
+2.5 million monthly active users
+200 million requests / day (pageviews + API calls)
+    930 million photos
+    80 TB raw space for image storage
+    60 TB HDFS raw space for analytics data
+    70% of traffic comes from mobile apps (API requests)
+    3+ hours / week time spent per member
+    25 million listed items
+    Over 220 servers:

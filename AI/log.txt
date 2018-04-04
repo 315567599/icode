@@ -1,0 +1,24 @@
+>>> import math
+>>> math.log(1)
+0.0
+>>> math.log(100)
+4.6051701859880918
+>>> math.log(2.7128)
+0.99798131182929184
+>>> math.log(0.001)
+-6.9077552789821368
+>>> math.log(0.00000001)
+-18.420680743952367
+>>> math.log(0.000000000001)
+-27.631021115928547
+
+We always represent and compute language model probabilities in log format
+as log probabilities. Since probabilities are (by definition) less than or equal to 1, log
+probabilities
+the more probabilities we multiply together, the smaller the product becomes. Multiplying
+enough N-grams together would result in numerical underflow. By using
+log probabilities instead of raw probabilities, we get numbers that are not as small.
+
+
+概率在[0,1],多个小概率相乘，很容易数值溢出，这时候需要用log函数。
+

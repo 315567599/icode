@@ -1,0 +1,16 @@
+http://blog.chinaunix.net/uid-16723279-id-3556992.html ZeroMQ研究与应用分析
+https://github.com/anjuke/zguide-cn/blob/master/chapter1.md ZMQ 指南
+https://github.com/anjuke/php-mmseg.git //php-mmseg is a PHP extension for Chinese segmentation using MMSEG algorithm
+https://laracasts.com/password_resets/create 页面风格优美
+https://laracasts.com/
+http://developer.baidu.com/wiki/index.php?title=docs/frontia
+http://oauth.net/2/
+http://en.wikipedia.org/wiki/Kerberos_%28protocol%29
+http://phills.me.uk/about 个人主页同时是简历模板
+http://highscalability.com/blog/?currentPage=4
+http://aosabook.org/en/intro2.html#matsudaira-kate 技术专业文章
+http://aosabook.org/en/index.html
+http://www.cl.cam.ac.uk/~mgk25/unicode.html#utf-8
+http://ryanstutorials.net/ 在线学习linux bash binary
+http://www.mcake.com/shop/110/index.html#mainer
+http://redis.io/topics/twitter-clone 

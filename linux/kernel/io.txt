@@ -1,0 +1,1 @@
+ cat /proc/ioports :查看io地址空间

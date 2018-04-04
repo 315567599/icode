@@ -1,0 +1,82 @@
+ls -lrt 按时间顺序排列
+-----------------------------------------------------------------------
+chmod u+s xxx # 设置setuid权限
+chmod g+s xxx # 设置setgid权限
+chmod o+t xxx # 设置stick bit权限，针对目录
+-----------------------------------------------------------------------
+统计文件行数
+find ./ -name "*.php" |xargs cat |wc -lcw
+ps axw -o pid,ppid,user,%cpu,vsz,wchan,command | egrep '(nginx|PID)'
+
+du -sh ./*
+pstree -p :display process tree
+netstat -lntp
+
+For web debugging, curl and curl -I are handy, and/or their wget equivalents.
+
+Know strace and ltrace. These can be helpful if a program is failing, hanging, or crashing, and you don't know why, or if you want to get a general idea of performance. Note the profiling option (-c), and the ability to attach to a running process (-p).
+
+Know about ldd to check shared libraries etc.
+
+
+ cat /proc/cpuinfo
+
+ cat www.php |sort |uniq
+
+lsof -p 5225 :查看进程打开的文件
+
+ssh-copy-id www@192.168.10.16 :免登陆ssh
+
+------------------------------
+curl  模拟提交表单:
+curl -F 'client_id=CLIENT-ID' \
+     -F 'client_secret=CLIENT-SECRET' \
+     -F 'object=tag' \
+     -F 'aspect=media' \
+     -F 'object_id=nofilter' \
+     -F 'callback_url=http://YOUR-CALLBACK/URL' \
+     https://api.instagram.com/v1/subscriptions/
+
+-------------------------
+在微信开发时看到这个调用事例
+调用示例（使用curl命令，用FORM表单方式上传一个多媒体文件）：
+curl -F media=@test.jpg "http://file.api.weixin.qq.com/cgi-bin/media/upload?access_token=ACCESS_TOKEN&type=TYPE
+
+mysqldump -h localhost -u root -pjc1234 test | gzip > all.sql.gz
+
+cut -f 1,2 -d ' ' mysampledata.txt
+
+. (dot) - a single character.
+? - the preceding character matches 0 or 1 times only.
+* - the preceding character matches 0 or more times.
++ - the preceding character matches 1 or more times.
+{n} - the preceding character matches exactly n times.
+{n,m} - the preceding character matches at least n times and not more than m times.
+[agd] - the character is one of those included within the square brackets.
+[^agd] - the character is not one of those included within the square brackets.
+[c-f] - the dash within the square brackets operates as a range. In this case it means either the letters c, d, e or f.
+() - allows us to group several characters to behave as one.
+| (pipe symbol) - the logical OR operation.
+^ - matches the beginning of the line.
+$ - matches the end of the line.
+
+
+-------------------------------
+那么如何理解">/dev/null 2>&1"，可以拆开来理解:
+
+> :重定向，例如 echo "Hello" > /root/1.txt
+1> stdout:表示标准输出,默认是1
+2> stderr:表示标准错误
+& :表示等同于,2>&1，表示标准错误重定向，等同于标准输出
+
+/dev/null :表示空设置文件，类似于Win系统中的垃圾箱
+
+-------------------------------
+通过文件锁解决脚本重复执行问题
+*/3 * * * *  sleep 20; flock -n /tmp/OPS-1263-3 /data1/env/php-fpm/bin/php /data1/www/index/launcher_release.php /task/getretransoutresult/doRequest -channel hfb >>/data1/logs/cmd/hfb/getretransoutresult`date +\%Y\%m\%d`.log 2>&1
+
+-----------------------------
+readelf -a /bin/ls
+----------------------------
+export PATH=/opt/apache-maven-3.3.9/bin:$PATH
+------------------------------

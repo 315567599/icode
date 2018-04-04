@@ -1,0 +1,7 @@
+indent就是代码美化工具的代名词	
+
+indent是gcc附带的一个标准工具，
+indent [options] [input-files]
+indent [options] [single-input-file] [-o output-file]
+
+fmt c 代码

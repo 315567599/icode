@@ -1,0 +1,27 @@
+Being able to swap any component easily is key to growth
+
+Failures drive innovative solutions
+
+Staging environment is essential: always be ready to loose 5%
+
+A/B testing is essential
+
+Monitor everything
+
+Build intelligent alerting system
+
+Engineers should be aware of business goals
+
+Business people should be aware of limitations of engineering
+
+Make builds and continuous integration fast. Jenkins run on a 2 bare metal servers with 32 CPU, 128G RAM and SSD drives
+
+*******************Do not guess or make assumptions, do AB testing and check the data.
+
+Search engine optimization is a full-time job.
+
+Build the product mobile-first.
+Design API very well from the very beginning, it is difficult to change it later.
+
+Measure and graph everything you can: HTTP response times, Resque queue sizes, Model persistence rates, Redis response times. You cannot improve what you cannot measure.
+

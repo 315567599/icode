@@ -1,0 +1,2 @@
+http://web.stanford.edu/class/cs224n/readings/cs229-linalg.pdf
+https://en.wikipedia.org/wiki/Chain_rule_(probability)

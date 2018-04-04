@@ -1,0 +1,56 @@
+git， gitlab
+wiki： redmine
+java 开发环境： maven + jenkins
+Edit
+数据层
+数据库
+mysql，innodb引擎，负责基本所有数据存储；
+postgres，图像数据库（地图和坐标位置等）
+tfs，小图片存储服务
+
+缓存
+redis 集群（eof + snapshot) ，复杂数据缓存和计数器等:
+mc 数据缓存
+消息队列： kafaka，mcq
+
+搜素系统
+es 搜索框架为主
+
+数据挖掘
+数据存储： hadoop 集群
+数据分析： spark 集群
+数据展示： 自开发的 BI 系统
+
+Edit
+业务层
+客户端
+iOS ： xcode 编译环境，object-c 为主要开发语言，以及部分 c 语言
+android ： eclipse，java 为主要开发语言，以及部分c 语言（NDK jni 调用）
+
+前端
+JS 语言，服务端：nodejs 作为标准
+移动端： HTML5 为主
+
+php
+运营后台， CI 框架 和 yaf 框架
+提供API 服务， 实惠内部开发框架（提供高并发处理）
+
+平台
+JAVA 语言开发为主，c/c++ 开发为副
+内部RPC 框架 ： dubbo 框架为主，http API 为辅
+NIO 框架： mina，jetty 框架
+API 框架： jersey
+
+应用层
+tomcat + nginx 服务架构
+日志收集系统： flume
+负责均衡调度系统： zookeeper
+nginx + php-fpm 服务架构
+容器应用： docker 为主
+测试
+用例管理： testlink
+bug 跟踪：jira
+运维
+运维系统： zabbix 系统
+mysql 监控：mysqlmtop
+API 运维监控： 根据业务开发的监控系统

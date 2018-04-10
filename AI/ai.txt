@@ -14,6 +14,8 @@ http://web.stanford.edu/class/cs224n/archive/WWW_1617/lectures/vanishing_grad_ex
 -----------------------------
 https://cs.nyu.edu/~yann/research/cface/index.html
 http://yann.lecun.com/    Director of AI Research, Facebook
+bottleneck_tensor的含义: Layer before the final softmax.
+
 
 -----------------------------
 Classifier                                              Error Rate

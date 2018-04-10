@@ -4,3 +4,5 @@ core.*
 .idea
 AI/inception_model/*
 AI/tensorflow-learn/captcha/*
+AI/tensorflow-learn/images/*
+AI/retain-image/tf_files/*

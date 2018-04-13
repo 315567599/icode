@@ -11,11 +11,13 @@ http://cs231n.github.io/optimization-2/ (backprop)
 http://www.wildml.com/2015/09/recurrent-neural-networks-tutorial-part-1-introduction-to-rnns/  Recurrent Neural Networks Tutorial, Part 1 – Introduction to RNNs
 http://cs231n.github.io/neural-networks-case-study/ (手工实现一个两层神经网络)
 http://web.stanford.edu/class/cs224n/archive/WWW_1617/lectures/vanishing_grad_example.html 梯度消失
+https://gist.github.com/karpathy/d4dee566867f8291f086    (Minimal character-level Vanilla RNN model. Written by Andrej Karpathy (@karpathy)
+)
 -----------------------------
 https://cs.nyu.edu/~yann/research/cface/index.html
 http://yann.lecun.com/    Director of AI Research, Facebook
 bottleneck_tensor的含义: Layer before the final softmax.
-
+https://www.tensorflow.org/api_guides/python/nn  
 
 -----------------------------
 Classifier                                              Error Rate

@@ -33,6 +33,7 @@ def lossFun(inputs, targets, hprev):
   xs, hs, ys, ps = {}, {}, {}, {}
   hs[-1] = np.copy(hprev)
   loss = 0
+  #print([ix_to_char[c] for c in inputs])
   # forward pass
   for t in xrange(len(inputs)):
     xs[t] = np.zeros((vocab_size,1)) # encode in 1-of-k representation

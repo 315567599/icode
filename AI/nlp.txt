@@ -8,3 +8,4 @@ https://blog.csdn.net/malefactor/article/details/50725480 序列标注
 https://www.ltp-cloud.com/intro/#sdp_how
 https://arxiv.org/pdf/1409.0473.pdf Neural machine translation
 http://keras-cn.readthedocs.io/en/latest/layers/recurrent_layer/
+http://colah.github.io/posts/2014-07-NLP-RNNs-Representations/

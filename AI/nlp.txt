@@ -9,3 +9,5 @@ https://www.ltp-cloud.com/intro/#sdp_how
 https://arxiv.org/pdf/1409.0473.pdf Neural machine translation
 http://keras-cn.readthedocs.io/en/latest/layers/recurrent_layer/
 http://colah.github.io/posts/2014-07-NLP-RNNs-Representations/
+http://licstar.net/archives/328   Deep Learning in NLP （一）词向量和语言模型
+

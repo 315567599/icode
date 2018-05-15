@@ -1,2 +1,3 @@
 http://www.importnew.com/15420.html  aop
 http://www.importnew.com/10294.html  annotation
+http://www.cnblogs.com/dolphin0520/p/3920407.html threadlocal

@@ -3,3 +3,4 @@ http://www.importnew.com/10294.html  annotation
 http://www.cnblogs.com/dolphin0520/p/3920407.html threadlocal
 http://www.jb51.net/article/78351.htm enum
 https://blog.csdn.net/yangding_/article/details/52768906 twitter snowflake 算法
+http://rensanning.iteye.com/blog/2355928 spring boot

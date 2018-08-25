@@ -209,3 +209,118 @@ public boolean isPermittedRequest(String remoteAddress) {
 
 
 
+InputStream resourceInputStream = null;
+
+        try {
+            // Append data specified in ranges to existing content for this
+            // resource - create a temp. file on the local filesystem to
+            // perform this operation
+            // Assume just one range is specified for now
+            if (range != null) {
+                File contentFile = executePartialPut(req, range, path);
+                resourceInputStream = new FileInputStream(contentFile);
+            } else {
+                resourceInputStream = req.getInputStream();
+            }
+
+            if (resources.write(path, resourceInputStream, true)) {
+                if (resource.exists()) {
+                    resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                } else {
+                    resp.setStatus(HttpServletResponse.SC_CREATED);
+                }
+            } else {
+                resp.sendError(HttpServletResponse.SC_CONFLICT);
+            }
+        } finally {
+            if (resourceInputStream != null) {
+                try {
+                    resourceInputStream.close();
+                } catch (IOException ioe) {
+                    // Ignore
+                }
+            }
+        }
+
+
+
+
+protected String determineMethodsAllowed(HttpServletRequest req) {
+        StringBuilder allow = new StringBuilder();
+
+        // Start with methods that are always allowed
+        allow.append("OPTIONS, GET, HEAD, POST");
+
+        // PUT and DELETE depend on readonly
+        if (!readOnly) {
+            allow.append(", PUT, DELETE");
+        }
+
+        // Trace - assume disabled unless we can prove otherwise
+        if (req instanceof RequestFacade &&
+                ((RequestFacade) req).getAllowTrace()) {
+            allow.append(", TRACE");
+        }
+
+        return allow.toString();
+    }
+
+
+
+
+ private CompressionFormat[] parseCompressionFormats(String precompressed, String gzip) {
+        List<CompressionFormat> ret = new ArrayList<>();
+        if (precompressed != null && precompressed.indexOf('=') > 0) {
+            for (String pair : precompressed.split(",")) {
+                String[] setting = pair.split("=");
+                String encoding = setting[0];
+                String extension = setting[1];
+                ret.add(new CompressionFormat(extension, encoding));
+            }
+        } else if (precompressed != null) {
+            if (Boolean.parseBoolean(precompressed)) {
+                ret.add(new CompressionFormat(".br", "br"));
+                ret.add(new CompressionFormat(".gz", "gzip"));
+            }
+        } else if (Boolean.parseBoolean(gzip)) {
+            // gzip handling is for backwards compatibility with Tomcat 8.x
+            ret.add(new CompressionFormat(".gz", "gzip"));
+        }
+        return ret.toArray(new CompressionFormat[ret.size()]);
+    }
+
+
+
+private static boolean isText(String contentType) {
+        return  contentType == null || contentType.startsWith("text") ||
+                contentType.endsWith("xml") || contentType.contains("/javascript");
+    }
+
+
+ private boolean pathEndsWithCompressedExtension(String path) {
+        for (CompressionFormat format : compressionFormats) {
+            if (path.endsWith(format.extension)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+
+第三个方法比较特殊，我们为每个线程都缓存一个instance，存放在ThreadLocal里，使用的时候从ThreadLocal里取就可以了:
+private static ThreadLocal<SimpleDateFormat> formatCache = new ThreadLocal<SimpleDateFormat>() {
+
+@Override
+protected SimpleDateFormat initialValue() {
+return new SimpleDateFormat(“yyyy-MM-dd”);
+}
+
+};
+
+public static String formatDate3(Date date) {
+SimpleDateFormat format = formatCache.get();
+return format.format(date);
+}
+
+
+

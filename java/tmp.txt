@@ -1,0 +1,38 @@
+        List<String> ret = new ArrayList<String>();
+        String address = (String) context.get("address");
+
+
+        Set<String> ret = new HashSet<String>();
+        if (pattern == null || values == null) {
+            return ret;
+        }
+
+        for (String v : values) {
+            if (isMatchGlobPattern(pattern, v)) {
+                ret.add(v);
+            }
+        }
+
+
+       if (service.contains(",")) throw new IllegalStateException("service(" + service + ") contain illegale ','");
+
+        String interfaceName = service;
+        int gi = interfaceName.indexOf("/");
+        if (gi != -1) interfaceName = interfaceName.substring(gi + 1);
+        int vi = interfaceName.indexOf(':');
+        if (vi != -1) interfaceName = interfaceName.substring(0, vi);
+
+
+                List<String> serviceNamePatterns = ownerDAO.findAllServiceNames();
+        for (String p : serviceNamePatterns) {
+            if (ParseUtils.isMatchGlobPattern(p, serviceName)) {
+                List<String> list = ownerDAO.findUsernamesByServiceName(p);
+                usernames.addAll(list);
+            }
+        }
+
+
+
+
+
+

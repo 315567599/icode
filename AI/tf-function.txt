@@ -1,0 +1,10 @@
+它的作用是切分传入Tensor的第一个维度，生成相应的dataset。
+
+例1：
+dataset = tf.data.Dataset.from_tensor_slices(np.random.uniform(size=(5, 2))) 
+    传入的数值是一个矩阵，它的形状为(5, 2)，tf.data.Dataset.from_tensor_slices就会切分它形状上的第一个维度，最后生成的dataset中一个含有5个元素，每个元素的形状是(2, )，即每个元素是矩阵的一行。
+
+    例2：
+    对于更复杂的情形，比如元素是一个python中的元组或者字典：在图像识别中一个元素可以是｛”image”:image_tensor,”label”:label_tensor｝的形式。 
+    dataset = tf.data.Dataset.from_tensor_slices ( { “a”:np.array([1.0,2.0,3.0,4.0,5.0]), “b”:np.random.uniform(size=(5,2) ) } ) 
+    这时，函数会分别切分”a”中的数值以及”b”中的数值，最后总dataset中的一个元素就是类似于{ “a”:1.0, “b”:[0.9,0.1] }的形式。

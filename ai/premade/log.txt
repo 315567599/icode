@@ -1,0 +1,32 @@
+train_path: /root/.keras/datasets/iris_training.csv
+     SepalLength  SepalWidth  PetalLength  PetalWidth
+0            6.4         2.8          5.6         2.2
+1            5.0         2.3          3.3         1.0
+2            4.9         2.5          4.5         1.7
+3            4.9         3.1          1.5         0.1
+4            5.7         3.8          1.7         0.3
+..           ...         ...          ...         ...
+115          5.5         2.6          4.4         1.2
+116          5.7         3.0          4.2         1.2
+117          4.4         2.9          1.4         0.2
+118          4.8         3.0          1.4         0.1
+119          5.5         2.4          3.7         1.0
+
+[120 rows x 4 columns]
+SepalLength
+SepalWidth
+PetalLength
+PetalWidth
+<TensorSliceDataset shapes: ({SepalLength: (), SepalWidth: (), PetalLength: (), PetalWidth: ()}, ()), types: ({SepalLength: tf.float64, SepalWidth: tf.float64, PetalLength: tf.float64, PetalWidth: tf.float64}, tf.int64)>
+
+Test set accuracy: 0.967
+
+{'logits': array([ 3.8953068, -2.2279437, -7.400668 ], dtype=float32), 'probabilities': array([9.9780113e-01, 2.1865030e-03, 1.2395512e-05], dtype=float32), 'class_ids': array([0]), 'classes': array([b'0'], dtype=object)}
+
+Prediction is "Setosa" (99.8%), expected "Setosa"
+{'logits': array([-5.7554283,  2.4754865, -4.2421618], dtype=float32), 'probabilities': array([2.6590013e-04, 9.9852645e-01, 1.2075966e-03], dtype=float32), 'class_ids': array([1]), 'classes': array([b'1'], dtype=object)}
+
+Prediction is "Versicolor" (99.9%), expected "Versicolor"
+{'logits': array([-8.935112  , -2.076367  ,  0.96539384], dtype=float32), 'probabilities': array([4.7861478e-05, 4.5572344e-02, 9.5437980e-01], dtype=float32), 'class_ids': array([2]), 'classes': array([b'2'], dtype=object)}
+
+Prediction is "Virginica" (95.4%), expected "Virginica"

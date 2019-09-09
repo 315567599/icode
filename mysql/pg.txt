@@ -1,0 +1,15 @@
+systemctl enable postgresql-11
+systemctl start postgresql-11
+systemctl restart postgresql-11
+
+
+psql -Upostgres -dsdip -h192.168.88.130 -p5432
+
+
+
+
+
+createdb dbname -O onwer   创建数据库，指定所有者，默认postgres
+psql -d 数据库名    连接指定的数据库
+psql -d sdip -f /work/data/sdip-pg.sql
+

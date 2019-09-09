@@ -30,3 +30,6 @@ Pairwise SVM on 32x32 monocular images                  12.6% error
 Pairwise SVM on 95 PCA features                         13.3 error
 Convolutional Network "LeNet7"                          6.6% error
 Convolutional Network "LeNet7" with pose manifold       6.2% error
+
+conda activate my_env_name
+python -m ipykernel install --user --name my_env_name --display-name "Python (my_env_name)"

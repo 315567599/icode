@@ -5,4 +5,15 @@ Embedding为代表的表征学习，在大规模稀疏ID问题和多值ID问题�
 
 Kaggle上有一句非常经典的话，数据和特征决定了机器学习的上限，而模型和算法只是逼近这个上限而已，而这恰恰是课堂上最为缺失，一门需要在实践中学习的手艺。
 
+-------------------------------- -------------------------------- -------------------------------- --------------------------------
+
+You could create a new binary feature called “Has_Color” and assign it a value of “1” when an item has a color and “0” when the color is unknown.
+
+Going a step further, you could create a binary feature for each value that Item_Color has. This would be three binary attributes: Is_Red, Is_Blue and Is_Unknown.
+
+----
+you may suspect that there is a relationship between the time of day and other attributes.
+
+You could create a new numerical feature called Hour_of_Day for the hour that might help a regression model.
+
 

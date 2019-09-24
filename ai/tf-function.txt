@@ -8,3 +8,9 @@ dataset = tf.data.Dataset.from_tensor_slices(np.random.uniform(size=(5, 2)))
     对于更复杂的情形，比如元素是一个python中的元组或者字典：在图像识别中一个元素可以是｛”image”:image_tensor,”label”:label_tensor｝的形式。 
     dataset = tf.data.Dataset.from_tensor_slices ( { “a”:np.array([1.0,2.0,3.0,4.0,5.0]), “b”:np.random.uniform(size=(5,2) ) } ) 
     这时，函数会分别切分”a”中的数值以及”b”中的数值，最后总dataset中的一个元素就是类似于{ “a”:1.0, “b”:[0.9,0.1] }的形式。
+
+    ====================
+    def arg_max(input, dimension, name=None) 作用是取行或者列的最大值的位置。
+
+    ====================
+

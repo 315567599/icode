@@ -1,3 +1,5 @@
+__author__ = 'jiangchao'
+
 class MyClass:
     def __init__(self, a ,b):
         self._a = a
@@ -5,6 +7,7 @@ class MyClass:
 
     def sum(self):
         count = self._a + self._b
+        print(__author__)
         print(str(count))
 
     @property

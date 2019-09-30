@@ -56,5 +56,16 @@ while (frame and os.path.dirname(frame.f_code.co_filename) ==
     frame = frame.f_back
 
 ----------------------------------------------------------
+try:
+    msg = self.format(record)
+    stream = self.stream
+    # issue 35046: merged two stream.writes into one.
+    stream.write(msg + self.terminator)
+    self.flush()
+except RecursionError:  # See issue 36272
+    raise
+except Exception:
+    self.handleError(record)
 
+----------------------------------------------------------
 

@@ -133,4 +133,11 @@ self._tunnel_host = None
 self._tunnel_port = None
 self._tunnel_headers = {}
 ----------------------------------------------------------
+if not skip_host:
+    netloc = ''
+    if url.startswith('http'):
+	nil, netloc, nil, nil, nil = urlsplit(url)
+
+----------------------------------------------------------
+
 

@@ -68,4 +68,8 @@ except Exception:
     self.handleError(record)
 
 ----------------------------------------------------------
+FORBIDDEN = (403, 'Forbidden', 'Request forbidden -- authorization will not help')
+NOT_FOUND = (404, 'Not Found', 'Nothing matches the given URI')
+METHOD_NOT_ALLOWED = (405, 'Method Not Allowed', 'Specified method is invalid for this resource')
+----------------------------------------------------------
 

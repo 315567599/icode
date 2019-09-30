@@ -125,4 +125,12 @@ def parse_headers(fp, _class=HTTPMessage):
     hstring = b''.join(headers).decode('iso-8859-1')
     return email.parser.Parser(_class=_class).parsestr(hstring)
 ----------------------------------------------------------
+self._buffer = []
+self.__response = None
+self.__state = _CS_IDLE
+self._method = None
+self._tunnel_host = None
+self._tunnel_port = None
+self._tunnel_headers = {}
+----------------------------------------------------------
 

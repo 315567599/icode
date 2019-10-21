@@ -139,5 +139,10 @@ if not skip_host:
 	nil, netloc, nil, nil, nil = urlsplit(url)
 
 ----------------------------------------------------------
+  return (x_train, y_train), (x_test, y_test)
+  (train_images, train_labels), (test_images, test_labels) = fashion_mnist.load_data()
+
+
+----------------------------------------------------------
 
 
